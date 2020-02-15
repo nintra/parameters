@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/nintra/parameters/issues"
   },
-  "homepage": "https://github.com/nintra/parameters#readme"
+  "homepage": "https://github.com/nintra/parameters#readme",
+  "dependencies": {
+    "lodash": "^4.17.15"
+  }
 }
