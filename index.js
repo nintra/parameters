@@ -1,7 +1,10 @@
 'use strict';
 
 
-const _ = require('lodash');
+const _each = require('lodash/each');
+const _map = require('lodash/map');
+const _isArray = require('lodash/isArray');
+
 const rxEscapeSequence = /%[0-9A-Fa-f]{2}'/g;
 
 
@@ -25,7 +28,7 @@ function parse(queryString) {
     }
 
     var params = {};
-    _.each(queryString.split('&'), function(param) {
+    _each(queryString.split('&'), function(param) {
         param = decodeURIComponent(unescape(param));
         var component = param.split('='),
             key   = component[0],
@@ -49,9 +52,9 @@ function parse(queryString) {
 function stringify(data) {
     let flatData = [];
 
-    _.each(data, (value, key) => {
-        if (_.isArray(value)) {
-            _.each(value, entry => {
+    _each(data, (value, key) => {
+        if (_isArray(value)) {
+            _each(value, entry => {
                 flatData.push({
                     key: key +'[]',
                     value: entry,
@@ -65,7 +68,7 @@ function stringify(data) {
         }
     });
 
-    return _.map(flatData, entry =>
+    return _map(flatData, entry =>
         entry.key + (entry.value ? '='+ encodeURIComponent(entry.value) : '')
     ).join('&');
 }
